@@ -57,5 +57,15 @@ trait Followable
             'following_user_id'
         )->inRandomOrder();
     }
+    
+    /**
+     * Get users who are not following this 
+     * users
+     * @return paginated user collection
+     */
+    public function unFollowings()
+    {
+        return self::whereNotIn('id',$this->follows->pluck('following_user_id'))->paginate(30);
+    }
 
 }
